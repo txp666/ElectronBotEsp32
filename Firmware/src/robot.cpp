@@ -29,7 +29,6 @@ void Robot::UpdateServoAngle(Robot::JointStatus_t &_joint)
 
 void Robot::SetJointEnable(Robot::JointStatus_t &_joint, bool _enable)
 {
-
     i2cTxData[0] = 0xff;
     i2cTxData[1] = _enable ? 1 : 0;
 
@@ -40,20 +39,39 @@ void Robot::SetJointEnable(Robot::JointStatus_t &_joint, bool _enable)
 
 void Robot::TransmitAndReceiveI2cPacket(uint8_t _id)
 {
-
-    esp_err_t state = ESP_FAIL;
-    do
+    // 发送数据
+    Wire.beginTransmission(_id);
+    for (int i = 0; i < 5; i++)
     {
-       state = i2c_master_write_to_device(I2C_NUM_0, _id, i2cTxData, 5, 5);
-     //   state = i2c_master_write_read_device(I2C_NUM_0, _id, i2cTxData, sizeof(i2cTxData), i2cRxData, sizeof(i2cRxData), 5);
-    } while (state != ESP_OK);
-    do
+        Wire.write(i2cTxData[i]);
+    }
+    byte txError = Wire.endTransmission();
+    while (txError != 0)
     {
+        delay(5); // 重试间隔
+        Wire.beginTransmission(_id);
+        for (int i = 0; i < 5; i++)
+        {
+            Wire.write(i2cTxData[i]);
+        }
+        txError = Wire.endTransmission();
+    }
 
-        state = i2c_master_read_from_device(I2C_NUM_0, _id, i2cRxData,5, 5);
+    // 接收数据
+    byte bytesRead = 0;
+    while (bytesRead != 5)
+    {
+        bytesRead = Wire.requestFrom(_id, 5);
+        delay(5); // 重试间隔
+    }
 
-    } while (state != ESP_OK);
+    for (int i = 0; i < bytesRead; i++)
+    {
+        i2cRxData[i] = Wire.read();
+    }
 }
+
+
 
 void Robot::SetJointTorqueLimit(Robot::JointStatus_t &_joint, float _percent)
 {
@@ -170,11 +188,6 @@ void Robot::SetJointKd(Robot::JointStatus_t &_joint, float _value)
     _joint.angle = *(float *)(i2cRxData + 1);
 
     vTaskDelay(500); // wait servo reset
-}
-
-uint8_t *Robot::GetExtraDataRxPtr()
-{
-    return GetLcdBufferPtr() + 60 * 240 * 3;
 }
 
 void Robot::UpdateJointAngle(Robot::JointStatus_t &_joint)

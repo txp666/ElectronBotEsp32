@@ -1,5 +1,0 @@
-.devcontainer
-.vscode/
-build/ 
-Makefile
-sdkconfig.old
