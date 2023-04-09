@@ -21,6 +21,5 @@
 <video id="video" controls="" preload="none">
     <source id="mp4" src="./Images/1.mp4" type="video/mp4">
 </video>
-https://user-images.githubusercontent.com/52451470/230772330-32ff0533-aee0-43b7-b117-bb121c39bd10.mp4
-
+![](./Images/2.jpg)
 
