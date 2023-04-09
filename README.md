@@ -18,8 +18,5 @@
 
 **23/4/9更新**：移植lvgl循环播放笑脸动图，目前屏幕与舵机都可正常使用，可以组装完成一个初级的脱机机器人
 
-<video id="video" controls="" preload="none">
-    <source id="mp4" src="./Images/1.mp4" type="video/mp4">
-</video>
 ![](./Images/2.jpg)
 
