@@ -310,12 +310,10 @@ void Screen::WriteFrameBuffer(uint8_t *_buffer, uint32_t _len, bool _isAppend)
     ChipSelect(false);
 }
 
-
 void Screen::ChipSelect(bool _enable)
 {
     digitalWrite(csPin, _enable ? LOW : HIGH);
 }
-
 
 void Screen::Reset(bool _enable)
 {
@@ -355,12 +353,12 @@ void Screen::WriteData(uint8_t *_data, uint32_t _len)
     ChipSelect(false); // 禁用屏幕
 }
 
-// void Screen::SetBackLight(float _val)
-// {
-//     if (_val < 0)
-//         _val = 0;
-//     else if (_val > 1.0f)
-//         _val = 1.0f;
+void Screen::SetBackLight(float _val)
+{
+    if (_val < 0)
+        _val = 0;
+    else if (_val > 1.0f)
+        _val = 1.0f;
 
-//     HAL_GPIO_WritePin(GPIOA, GPIO_PIN_11, GPIO_PIN_SET);
-// }
+    digitalWrite(46,HIGH);
+}
