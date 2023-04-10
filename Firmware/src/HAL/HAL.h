@@ -8,6 +8,7 @@
 #include "CommonMacro.h"
 #include "FreeRTOS.h"
 
+
 namespace HAL
 {
     void Init();
@@ -27,7 +28,9 @@ namespace HAL
     void IMU_Init();
     void IMU_Update();
 
-
+/* Paj7620 */
+    void Paj7620_Init();
+    void Paj7620_Update(void *parameter);
 
 }
 

@@ -3,7 +3,7 @@
 
 void HAL::I2C_Init(bool startScan)
 {
-    Wire.begin(CONFIG_MCU_SDA_PIN,CONFIG_MCU_SCL_PIN);
+     Wire.begin(CONFIG_MCU_SDA_PIN,CONFIG_MCU_SCL_PIN);
 
     if(!startScan)
         return;

@@ -2,6 +2,7 @@
 #include "HAL/HAL.h"
 #include "Port/Display.h"
 #include "App/image.h"
+
 Robot electron;
 TaskHandle_t motorTaskHandle;
 
@@ -9,7 +10,7 @@ void motorTask(void *parameter);
 
 void setup()
 {
-  Wire.begin(21, 14); // sda 21,scl 14
+  // Wire.begin(21, 14); // sda 21,scl 14
   HAL::Init();
   Port_Init();
   INIT_DONE();
@@ -22,6 +23,7 @@ void setup()
       NULL,
       5,
       &motorTaskHandle);
+
 }
 
 void loop()
@@ -29,7 +31,7 @@ void loop()
 
   HAL::Update();
 
-  // delay(20);
+  delay(20);
 }
 void motorTask(void *parameter)
 {

@@ -20,14 +20,16 @@ void HAL::Init()
 
    
     HAL::Backlight_Init();
-   // HAL::I2C_Init(true);
-    //HAL::IMU_Init();
+    HAL::I2C_Init(false);
+    HAL::IMU_Init();
+    HAL::Paj7620_Init();
   
 }
 
 void HAL::Update()
 {
    
-   // HAL::IMU_Update();
+   HAL::IMU_Update();
+  
 
 }
